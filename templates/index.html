@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <!--<link rel="stylesheet" href="./main.css">-->
+  <!--<link rel="stylesheet" href="./index.css">-->
+	<title></title>
+</head>
+<body>
+  <header>
+    <img src="data:image/jpg;base64,{{bg_pdf}}" class="background_img">
+    <div class="black_filter"></div>
+    <img src="data:image/png;base64,{{logo}}" class="logo"> 
+  </header>
+  <div class="header">
+    <h1>COTIZACION DE PRESTAMO</h1>
+    <h4>REALIZADO LA FECHA {{date}}</h4>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Fecha pago</th>
+        <th scope="col">Cuota</th>
+        <th scope="col">Interes</th>
+	<th scope="col">Capital</th>
+	<th scope="col">Saldo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in data %}
+      <tr> 
+	<td>{{d.no}}</td>
+	<td>{{d.payment_date}}</td>
+	<td>Q.{{d.quote}}</td>
+	<td>Q.{{d.interest}}</td>
+	<td>Q.{{d.capital}}</td>
+	<td>Q.{{d.amount}}</td>
+      </tr> 
+      {% endfor %}
+      <tr>  
+        <td>Total: </td>
+	<td>Q.{{total}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="firm">
+    <h4>F.______________________
+      <p>Cliente</p>
+    </h4>
+    <h4>F.______________________
+      <p>Vendedor</p>
+    </h4>
+  </div>
+</body>
+</html>
