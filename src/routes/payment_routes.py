@@ -1,8 +1,27 @@
 from flask import Blueprint, jsonify, request
-from werkzeug.wrappers import response
 from src.utils.obj_payment import obj_payment
 
 payment_route = Blueprint('payment_route', __name__)
+
+@payment_route.route('/get-dashboard/<string:init>/<string:finish>')
+def dashboard(init,finish):
+    json = obj_payment().get_dashboard(init,finish) 
+    response = jsonify(json)
+    if(not json.get('err')):
+        response.status_code = 200
+        return response
+    response.status_code =500
+    return response
+
+@payment_route.route('/get-history/<int:id>', methods=['GET'])
+def history(id):
+    json_response = obj_payment().get_history(id)
+    response = jsonify(json_response)
+    if(not json_response.get('err')):
+        response.status_code=200
+        return response
+    response.status_code=500
+    return response
 
 @payment_route.route('/get-payment/<int:id>', methods=['GET'])
 def payment(id):

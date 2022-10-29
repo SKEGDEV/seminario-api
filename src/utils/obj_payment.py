@@ -4,6 +4,61 @@ from src.utils.obj_loan import obj_loan
 
 class obj_payment(obj_loan):
 
+    def get_capital_recive(self, init:str, finish:str):
+        try:
+            connect = mysql.connect()
+            query = connect.cursor()
+            query.execute("CALL recive_capital(%s, %s)",(init,finish))
+            recive = query.fetchall()
+            connect.commit()
+            return recive
+        except:
+            return []
+
+    def get_capital_restore(self, init:str, finish:str):
+        try:
+            connect = mysql.connect()
+            query = connect.cursor()
+            query.execute("CALL capital_restore(%s, %s)",(init,finish))
+            restore = query.fetchall()
+            connect.commit()
+            return restore 
+        except:
+            return []
+    def get_diesmo(self, init:str, finish:str):
+        try:
+            connect = mysql.connect()
+            query = connect.cursor()
+            query.execute("CALL diesmo(%s, %s)",(init,finish))
+            restore = query.fetchall()
+            connect.commit()
+            return restore 
+        except:
+            return []
+
+    def get_dashboard(self, init:str, finish:str):
+        try:
+            return{
+                    "msm":"calculos realizados",
+                    "restore":self.get_capital_restore(init,finish),
+                    "recive": self.get_capital_recive(init,finish),
+                    "diesmo":self.get_diesmo(init,finish)
+                    }
+        except Exception as e:
+            return{"err":str(e)}
+    def get_history(self, loan_id:int):
+        try:
+            connect = mysql.connect()
+            query = connect.cursor()
+            query.execute("CALL get_history(%s)",(loan_id))
+            payments = query.fetchall()
+            connect.commit()
+            if(len(payments)>0):
+                return{"msm":"pagos encontrado con exito","data":payments}
+            return{"msm":"Los pagos no han sido encontrados"}
+        except Exception as e:
+            return {"err": str(e)}
+
     def get_payment_info(self, loan_id:int):
         try:
             connect = mysql.connect()

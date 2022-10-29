@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <!--<link rel="stylesheet" href="./main.css">-->
+  <!--<link rel="stylesheet" href="./index.css">-->
+	<title></title>
+</head>
+<body>
+  <header>
+    <img src="data:image/jpg;base64,{{bg_pdf}}" class="background_img">
+    <div class="black_filter"></div>
+    <img src="data:image/png;base64,{{logo}}" class="logo"> 
+  </header>
+  <div class="header">
+    <h1>CLIENTES QUE NO PAGAN ESTA SEMANA</h1>
+    <h4>REALIZADO LA FECHA {{date}}</h4>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Monto</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in data %}
+      <tr> 
+	<td>{{d.0}}</td>
+	<td>{{d.1}}</td>
+	<td>{{d.2}}</td>
+	<td>Q.{{d.3}}</td>
+      </tr> 
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
